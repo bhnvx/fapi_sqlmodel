@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:latest
+    env_file:
+      - .env
+    command:
+      - -p ${POSTGRES_PORT}
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      PGDATA: /db
+
+  api:
+    build: .
+    container_name: fastapi_test
+    command:
+      - bash
+      - -c
+      - |
+        /wait-for-it.sh db:${POSTGRES_PORT} -t 10
+        python main.py
+    ports:
+      - "${SERVER_OUT_PORT}:${SERVER_PORT}"
+    depends_on:
+      - db
+    volumes:
+      - .:/fastapi
+      - /etc/localtime:/etc/localtime:ro
