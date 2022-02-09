@@ -1,5 +1,6 @@
 from logging.config import fileConfig
 
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
@@ -25,7 +26,9 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+Base = declarative_base()
+
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -72,8 +75,12 @@ def run_migrations_online():
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection, target_metadata=target_metadata,
+            include_schemas=True,
+            version_table_schema='Dev'
         )
+
+        connection.execute('CREATE SCHEMA IF NOT EXISTS {name}'.format(name='Dev'))
 
         with context.begin_transaction():
             context.run_migrations()
