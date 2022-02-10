@@ -15,7 +15,7 @@ conf = Config('.env')
 
 if not config.get_main_option('splalchemy.url'):
     config.set_main_option('sqlalchemy.url',
-                           f'{conf("POSTGRES_CONNECTION")}://{conf("POSTGRES_USERNAME")}:{conf("POSTGRES_PASSWORD")}'
+                           f'postgresql://{conf("POSTGRES_USERNAME")}:{conf("POSTGRES_PASSWORD")}'
                            f'@{conf("POSTGRES_HOST")}:{conf("POSTGRES_PORT")}/{conf("POSTGRES_DATABASE")}')
 
 # Interpret the config file for Python logging.
