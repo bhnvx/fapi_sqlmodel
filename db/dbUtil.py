@@ -12,7 +12,7 @@ database = dict(
     drivername=str(conf("POSTGRES_CONNECTION")),
     username=str(conf("POSTGRES_USERNAME")),
     password=str(conf("POSTGRES_PASSWORD")),
-    host="db",
+    host=str(conf("POSTGRES_HOST")),
     port=int(conf("POSTGRES_PORT")),
     database=str(conf("POSTGRES_DATABASE"))
 )

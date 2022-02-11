@@ -12,7 +12,11 @@ services:
     volumes:
       - ./db:/var/lib/postgresql/data
     environment:
-      PGDATA: /db
+      POSTGRES_DB: FASTAPI
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dues#0211
+      PGDATA: ./db
+
 
   api:
     build: .
