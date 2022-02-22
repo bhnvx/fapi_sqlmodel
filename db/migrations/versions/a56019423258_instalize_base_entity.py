@@ -17,7 +17,7 @@ depends_on = None
 
 
 def upgrade():
-    op.create_table('User',
+    op.create_table('user',
                     sa.Column('id', sa.String(length=32), nullable=False),
                     sa.Column('username', sa.String(length=32), nullable=False),
                     sa.Column('password', sa.String(length=128), nullable=False),
@@ -35,4 +35,4 @@ def downgrade():
     op.drop_index(op.f('ix_User_password'), table_name='password')
     op.drop_index(op.f('ix_User_username'), table_name='username')
     op.drop_index(op.f('ix_User_id'), table_name='id')
-    op.drop_table('User')
+    op.drop_table('user')
