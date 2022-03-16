@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException, Path
 import uvicorn
 
 from starlette.config import Config
@@ -33,6 +33,14 @@ async def create_user(data: User, *, session: AsyncSession = Depends(get_session
     session.add(instance)
     await session.commit()
     await session.refresh(instance)
+    return instance
+
+
+@app.get('/get_user/{user_id}', response_model=User)
+async def get_user(user_id: None, *, session: AsyncSession = Depends(get_session)):
+    instance = await session.get(User, user_id)
+    if not instance:
+        raise HTTPException(status_code=404, detail=f"This User is not exist.")
     return instance
 
 
