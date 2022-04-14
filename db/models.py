@@ -7,7 +7,8 @@ import uuid as _uuid
 class User(SQLModel, table=True):
     __tablename__ = 'user'
 
-    id: Optional[_uuid.UUID] = Field(None, primary_key=True)
+    id: Optional[_uuid.UUID] = Field(default_factory=_uuid.uuid4, index=True, primary_key=True)
     username: str = Field(..., min_length=4, nullable=False)
     password: str = Field(..., min_length=8, nullable=False)
-    created_on: datetime = Field(default_factory=datetime.now().replace(tzinfo=None))
+    # created_on column will fix
+    created_on: Optional[datetime] = Field(None, )
