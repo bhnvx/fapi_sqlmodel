@@ -1,0 +1,13 @@
+Modules:
+  - Service1
+  - Service2
+
+RabbitMQ:
+  Host: localhost
+  Queue: rabbitmq
+  Routing_key: mq_test
+
+S3:
+  Access_key_id: None
+  Secret_access_key: None
+  Bucket_name: None
