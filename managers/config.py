@@ -1,7 +1,7 @@
 import yaml
 
 
-with open('config.yaml') as f:
+with open('../config.yaml') as f:
     config = yaml.load(f, yaml.FullLoader)
 
 Modules = config['Modules']

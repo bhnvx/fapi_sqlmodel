@@ -1,5 +1,5 @@
 import pika
-from ..config import *
+from managers.config import *
 
 
 def send_message():
